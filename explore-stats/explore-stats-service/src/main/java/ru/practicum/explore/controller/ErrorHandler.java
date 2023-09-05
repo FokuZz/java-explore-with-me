@@ -24,32 +24,33 @@ public class ErrorHandler {
     public ErrorResponse handleIllegalArgumentException(final RuntimeException e) {
         return new ErrorResponse(e.getMessage());
     }
+
     @ExceptionHandler
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ErrorResponse handleMissingServletRequestParameterException(final MissingServletRequestParameterException e) {
         log.error(e.getMessage(), e);
-        return new ErrorResponse("Required request parameter is not present: "+ e.getMessage());
+        return new ErrorResponse("Required request parameter is not present: " + e.getMessage());
     }
 
     @ExceptionHandler
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ErrorResponse handleValidException(final MethodArgumentNotValidException e) {
         log.error(e.getMessage(), e);
-        return new ErrorResponse("Validation error: "+ e.getMessage());
+        return new ErrorResponse("Validation error: " + e.getMessage());
     }
 
     @ExceptionHandler
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ErrorResponse handleValidException(final MethodArgumentTypeMismatchException e) {
         log.error(e.getMessage(), e);
-        return new ErrorResponse("Wrong type of value: "+ e.getMessage());
+        return new ErrorResponse("Wrong type of value: " + e.getMessage());
     }
 
     @ExceptionHandler
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ErrorResponse handleValidationException(final ValidationException e) {
         log.error(e.getMessage(), e);
-        return new ErrorResponse("Incorrectly made request: "+ e.getMessage());
+        return new ErrorResponse("Incorrectly made request: " + e.getMessage());
     }
 
 
@@ -57,7 +58,7 @@ public class ErrorHandler {
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ErrorResponse handleNoHandlerFoundException(final NoHandlerFoundException e, WebRequest request) {
         log.error("Неизвестный запрос: {}", request.getHeaderNames());
-        return new ErrorResponse("The required object was not found: "+ e.getMessage());
+        return new ErrorResponse("The required object was not found: " + e.getMessage());
 
     }
 
@@ -65,6 +66,6 @@ public class ErrorHandler {
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ErrorResponse handleThrowable(final Throwable e) {
         log.error("Произошла непредвиденная ошибка: " + e.getMessage(), e);
-        return new ErrorResponse("An unexpected error has occurred: "+ e.getClass() + ": " + e.getMessage());
+        return new ErrorResponse("An unexpected error has occurred: " + e.getClass() + ": " + e.getMessage());
     }
 }

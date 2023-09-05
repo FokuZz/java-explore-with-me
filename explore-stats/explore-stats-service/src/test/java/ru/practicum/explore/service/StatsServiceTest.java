@@ -35,7 +35,7 @@ public class StatsServiceTest {
 
     @BeforeEach
     public void init() {
-        endpointHitDto = endpointHitDto.builder()
+        endpointHitDto = EndpointHitDto.builder()
                 .id(1L)
                 .app("app")
                 .uri("/uri")

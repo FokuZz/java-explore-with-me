@@ -5,8 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import ru.practicum.explore.dto.ViewStatsDto;
 import ru.practicum.explore.dto.EndpointHitDto;
+import ru.practicum.explore.dto.ViewStatsDto;
 import ru.practicum.explore.service.StatsService;
 
 import java.time.LocalDateTime;
@@ -36,9 +36,9 @@ public class StatsController {
 
     @GetMapping("/stats")
     public List<ViewStatsDto> getStats(@RequestParam String start,
-                                                 @RequestParam String end,
-                                                 @RequestParam(required = false) List<String> uris,
-                                                 @RequestParam(required = false, defaultValue = "false") Boolean unique) {
+                                       @RequestParam String end,
+                                       @RequestParam(required = false) List<String> uris,
+                                       @RequestParam(required = false, defaultValue = "false") Boolean unique) {
 
         LocalDateTime startDate = LocalDateTime.parse(start, dateTimeFormatter);
         LocalDateTime endDate = LocalDateTime.parse(end, dateTimeFormatter);

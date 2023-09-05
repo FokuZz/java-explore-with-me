@@ -5,13 +5,11 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
-import java.util.Map;
-
 @Data
 @Builder
 @RequiredArgsConstructor
 @AllArgsConstructor
 public class App {
-    private Long appId;
     private final String appName;
+    private Long appId;
 }
