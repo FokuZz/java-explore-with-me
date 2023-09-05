@@ -5,13 +5,13 @@ import ru.practicum.explore.model.App;
 import ru.practicum.explore.model.EndpointHit;
 
 public class EndpointHitMapper {
-    public static EndpointHit mapFromDto(EndpointHitDto EndpointHitDto) {
+    public static EndpointHit mapFromDto(EndpointHitDto endpointHitDto) {
         return EndpointHit.builder()
-                .id(EndpointHitDto.getId())
-                .app(new App(EndpointHitDto.getApp()))
-                .uri(EndpointHitDto.getUri())
-                .ip(EndpointHitDto.getIp())
-                .timestamp(EndpointHitDto.getTimestamp())
+                .id(endpointHitDto.getId())
+                .app(new App(endpointHitDto.getApp()))
+                .uri(endpointHitDto.getUri())
+                .ip(endpointHitDto.getIp())
+                .timestamp(endpointHitDto.getTimestamp())
                 .build();
     }
 
