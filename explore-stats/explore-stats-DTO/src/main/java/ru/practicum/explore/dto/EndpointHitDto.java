@@ -27,8 +27,8 @@ public class EndpointHitDto {
     @NotBlank(message = "IP cannot be blank")
     private String ip;
 
-    @NotNull(message = "Timestamp cannot be blank")
     @Past(message = "Timestamp must be in past")
+    @NotNull(message = "Timestamp cannot be blank")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime timestamp;
 }
