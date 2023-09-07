@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 public class ViewStatsDto implements Comparable<ViewStatsDto> {
     private String app;
     private String uri;
-    private long hits;
+    private Integer hits;
 
     @Override
     public int compareTo(ViewStatsDto o) {
