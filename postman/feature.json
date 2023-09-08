@@ -22,9 +22,9 @@
               "const source = JSON.parse(pm.request.body.raw);\r",
               "const target = pm.response.json();\r",
               "\r",
-              "pm.test(\"Комментарий должен содержать поля: id, text, created, authorName, status\", function () {\r",
+              "pm.test(\"Комментарий должен содержать поля: id, info, created, authorName, status\", function () {\r",
               "pm.expect(target).to.have.property('id');\r",
-              "pm.expect(target).to.have.property('text');\r",
+              "pm.expect(target).to.have.property('info');\r",
               "pm.expect(target).to.have.property('created');\r",
               "pm.expect(target).to.have.property('authorName');\r",
               "pm.expect(target).to.have.property('status');\r",
@@ -34,7 +34,7 @@
               "    pm.expect(target.id).to.not.be.null;\r",
               "    pm.expect(target.created).to.not.be.null;\r",
               "    pm.expect(target.authorName).to.not.be.null;\r",
-              "    pm.expect(source.text).equal(target.text, 'Текст комментария должен соответствовать отправленному в запросе');\r",
+              "    pm.expect(source.info).equal(target.info, 'Текст комментария должен соответствовать отправленному в запросе');\r",
               "     pm.expect(target.status).to.not.be.null;\r",
               "});\r",
               ""
@@ -54,7 +54,7 @@
         ],
         "body": {
           "mode": "raw",
-          "raw": "{\r\n    \"text\": \"Классное мероприятие! Все было супер!)\"\r\n}"
+          "raw": "{\r\n    \"info\": \"Классное мероприятие! Все было супер!)\"\r\n}"
         },
         "url": {
           "raw": "{{baseUrl}}/users/:userId/comments/:eventId",
@@ -97,9 +97,9 @@
               "const source = JSON.parse(pm.request.body.raw);\r",
               "const target = pm.response.json();\r",
               "\r",
-              "pm.test(\"Комментарий должен содержать поля: id, text, created, authorName, status\", function () {\r",
+              "pm.test(\"Комментарий должен содержать поля: id, info, created, authorName, status\", function () {\r",
               "pm.expect(target).to.have.property('id');\r",
-              "pm.expect(target).to.have.property('text');\r",
+              "pm.expect(target).to.have.property('info');\r",
               "pm.expect(target).to.have.property('created');\r",
               "pm.expect(target).to.have.property('authorName');\r",
               "pm.expect(target).to.have.property('status');\r",
@@ -109,7 +109,7 @@
               "    pm.expect(target.id).to.not.be.null;\r",
               "    pm.expect(target.created).to.not.be.null;\r",
               "    pm.expect(target.authorName).to.not.be.null;\r",
-              "    pm.expect(source.text).equal(target.text, 'Текст комментария должен соответствовать отправленному в запросе');\r",
+              "    pm.expect(source.info).equal(target.info, 'Текст комментария должен соответствовать отправленному в запросе');\r",
               "     pm.expect(target.status).to.not.be.null;\r",
               "});\r",
               ""
@@ -134,7 +134,7 @@
         ],
         "body": {
           "mode": "raw",
-          "raw": "{\r\n    \"text\": \"Не понравилось, было очень скучно((\"\r\n}"
+          "raw": "{\r\n    \"info\": \"Не понравилось, было очень скучно((\"\r\n}"
         },
         "url": {
           "raw": "{{baseUrl}}/users/:userId/comments/:eventId",
@@ -230,9 +230,9 @@
               "const source = JSON.parse(pm.request.body.raw);\r",
               "const target = pm.response.json();\r",
               "\r",
-              "pm.test(\"Комментарий должен содержать поля: id, text, created, authorName, status\", function () {\r",
+              "pm.test(\"Комментарий должен содержать поля: id, info, created, authorName, status\", function () {\r",
               "pm.expect(target).to.have.property('id');\r",
-              "pm.expect(target).to.have.property('text');\r",
+              "pm.expect(target).to.have.property('info');\r",
               "pm.expect(target).to.have.property('created');\r",
               "pm.expect(target).to.have.property('authorName');\r",
               "pm.expect(target).to.have.property('status');\r",
@@ -242,7 +242,7 @@
               "    pm.expect(target.id).to.not.be.null;\r",
               "    pm.expect(target.created).to.not.be.null;\r",
               "    pm.expect(target.authorName).to.not.be.null;\r",
-              "    pm.expect(source.text).equal(target.text, 'Текст комментария должен соответствовать отправленному в запросе');\r",
+              "    pm.expect(source.info).equal(target.info, 'Текст комментария должен соответствовать отправленному в запросе');\r",
               "     pm.expect(target.status).to.not.be.null;\r",
               "});"
             ],
@@ -261,7 +261,7 @@
         ],
         "body": {
           "mode": "raw",
-          "raw": "{\r\n    \"text\": \"Мероприятие было неплохое, на 4\"\r\n}"
+          "raw": "{\r\n    \"info\": \"Мероприятие было неплохое, на 4\"\r\n}"
         },
         "url": {
           "raw": "{{baseUrl}}/users/:userId/comments/:eventId",
@@ -341,9 +341,9 @@
               "\r",
               "const target = pm.response.json();\r",
               "\r",
-              "pm.test(\"Комментарий должен содержать поля: id, text, created, authorName, eventId\", function () {\r",
+              "pm.test(\"Комментарий должен содержать поля: id, info, created, authorName, eventId\", function () {\r",
               "pm.expect(target).to.have.property('id');\r",
-              "pm.expect(target).to.have.property('text');\r",
+              "pm.expect(target).to.have.property('info');\r",
               "pm.expect(target).to.have.property('created');\r",
               "pm.expect(target).to.have.property('authorName');\r",
               "pm.expect(target).to.have.property('status');\r",
@@ -466,7 +466,7 @@
         ],
         "body": {
           "mode": "raw",
-          "raw": "{\r\n    \"text\": \"Класс!\"\r\n}"
+          "raw": "{\r\n    \"info\": \"Класс!\"\r\n}"
         },
         "url": {
           "raw": "{{baseUrl}}/users/:userId/comments/:eventId",
@@ -521,7 +521,7 @@
         ],
         "body": {
           "mode": "raw",
-          "raw": "{\r\n    \"text\": \"         \"\r\n}"
+          "raw": "{\r\n    \"info\": \"         \"\r\n}"
         },
         "url": {
           "raw": "{{baseUrl}}/users/:userId/comments/:eventId",
