@@ -16,7 +16,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestControllerAdvice
-@Slf4j
 public class ErrorHandler {
 
     @ExceptionHandler({UserNotFoundException.class, CategoryNotFoundException.class, EventNotFoundException.class})
