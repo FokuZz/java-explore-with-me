@@ -17,7 +17,7 @@ import javax.validation.constraints.Size;
 public class UpdateCommentAdminDto {
     @NotBlank
     @Size(min = 10, max = 500)
-    private String info;
+    private String text;
     @NotNull
     private CommentStateAction state;
 }

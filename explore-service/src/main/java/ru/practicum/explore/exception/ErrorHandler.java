@@ -1,6 +1,7 @@
 package ru.practicum.explore.exception;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.dao.InvalidDataAccessResourceUsageException;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -25,6 +26,13 @@ public class ErrorHandler {
         return new ErrorResponse(HttpStatus.NOT_FOUND, "The required object was not found.", e.getMessage());
     }
 
+    @ExceptionHandler(ForbiddenException.class)
+    @ResponseStatus(HttpStatus.FORBIDDEN)
+    public ErrorResponse handleForbiddenException(final RuntimeException e) {
+        return new ErrorResponse(HttpStatus.NOT_FOUND, "Only the author can delete a comment.", e.getMessage());
+    }
+
+
     @ExceptionHandler({MethodArgumentNotValidException.class})
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ErrorResponse handleMethodArgumentNotValidException(final MethodArgumentNotValidException e) {
@@ -48,9 +56,12 @@ public class ErrorHandler {
             CategoryExistsException.class,
             CannotDeleteCategoryException.class,
             AccessDeniedException.class,
-            RequestCannotBeUpdatedException.class})
+            RequestCannotBeUpdatedException.class,
+            InvalidDataAccessResourceUsageException.class})
     @ResponseStatus(HttpStatus.CONFLICT)
     public ErrorResponse handleEventUpdateImpossible(RuntimeException e) {
         return new ErrorResponse(HttpStatus.BAD_REQUEST, "Incorrectly made request.", e.getMessage());
     }
+
+
 }

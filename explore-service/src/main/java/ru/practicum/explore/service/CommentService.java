@@ -2,6 +2,7 @@ package ru.practicum.explore.service;
 
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -25,6 +26,7 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
+@Slf4j
 public class CommentService {
     private final CommentRepository commentRepository;
     private final EventRepository eventRepository;
@@ -35,24 +37,28 @@ public class CommentService {
         User author = getUserById(userId);
         Event event = getEventById(eventId);
         Comment comment = CommentMapper.toComment(newCommentDto, author, event);
+        log.info("Create new comment: {}", comment);
         return CommentMapper.toCommentDto(commentRepository.save(comment));
     }
 
     @Transactional
     public CommentDto updateCommentByUser(UpdateCommentUserDto updateCommentUserDto, Long userId, Long commentId) {
+        log.info("Update comment = {}", updateCommentUserDto);
         User user = getUserById(userId);
         Comment comment = getCommentById(commentId);
         if (!comment.getAuthor().getId().equals(userId)) {
             throw new ForbiddenException("Редактирование комментария доступно только автору комментария.");
         }
-        if (updateCommentUserDto.getInfo() != null) {
-            comment.setInfo(updateCommentUserDto.getInfo());
+        if (updateCommentUserDto.getText() != null) {
+            comment.setText(updateCommentUserDto.getText());
         }
         changeStatusComment(comment, updateCommentUserDto.getState());
+        log.info("Updated comment = {}", comment);
         return CommentMapper.toCommentDto(commentRepository.save(comment));
     }
 
     public CommentDto getCommentsByIdByUser(Long userId, Long commentId) {
+        log.info("Get comment with user, comment id ({},{})",userId, commentId);
         getUserById(userId);
         Comment comment = getCommentById(commentId);
         if (!comment.getAuthor().getId().equals(userId)) {
@@ -62,6 +68,7 @@ public class CommentService {
     }
 
     public void deleteCommentByUser(Long userId, Long commentId) {
+        log.info("Delete comment with user, comment id ({},{})",userId, commentId);
         getUserById(userId);
         Comment comment = getCommentById(commentId);
         if (!comment.getAuthor().getId().equals(userId)) {
@@ -71,20 +78,24 @@ public class CommentService {
     }
 
     public CommentDto updateCommentByAdmin(Long commentId, UpdateCommentAdminDto updateCommentAdminDto) {
+        log.info("Update comment Admin = {}", updateCommentAdminDto);
         Comment comment = getCommentById(commentId);
-        if (updateCommentAdminDto.getInfo() != null) {
-            comment.setInfo(updateCommentAdminDto.getInfo());
+        if (updateCommentAdminDto.getText() != null) {
+            comment.setText(updateCommentAdminDto.getText());
         }
         changeStatusComment(comment, updateCommentAdminDto.getState());
+        log.info("Updated comment Admin = {}", comment);
         return CommentMapper.toCommentDto(comment);
     }
 
     public void deleteCommentByAdmin(Long commentId) {
+        log.info("Delete comment Admin with CommentId = {}",commentId);
         getCommentById(commentId);
         commentRepository.deleteById(commentId);
     }
 
     public List<CommentDto> getAll(Long eventId, Pageable pageable) {
+        log.info("GetAll with eventId = {}",eventId);
         getEventById(eventId);
         List<Comment> comments = commentRepository.findCommentsByEventId(eventId, pageable);
         return comments.stream()
@@ -93,6 +104,7 @@ public class CommentService {
     }
 
     public List<CommentDto> getAllByAdmin(Long eventId, PageRequest pageable) {
+        log.info("GetAll Admin with eventId = {}",eventId);
         getEventById(eventId);
         List<Comment> comments = commentRepository.findAllByEventId(eventId, pageable);
         return comments.stream()

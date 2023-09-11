@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 public class CommentMapper {
     public Comment toComment(NewCommentDto commentDto, User user, Event event) {
         return Comment.builder()
-                .info(commentDto.getInfo())
+                .text(commentDto.getText())
                 .author(user)
                 .event(event)
                 .created(LocalDateTime.now())
@@ -26,7 +26,7 @@ public class CommentMapper {
     public CommentDto toCommentDto(Comment comment) {
         return CommentDto.builder()
                 .id(comment.getId())
-                .info(comment.getInfo())
+                .text(comment.getText())
                 .authorName(comment.getAuthor().getName())
                 .created(comment.getCreated())
                 .status(comment.getStatus())

@@ -23,7 +23,7 @@ public class Comment {
     @JoinColumn(name = "event_id")
     private Event event;
     @JoinColumn
-    private String info;
+    private String text;
     @Column(name = "created")
     private LocalDateTime created;
     @Enumerated(EnumType.STRING)
