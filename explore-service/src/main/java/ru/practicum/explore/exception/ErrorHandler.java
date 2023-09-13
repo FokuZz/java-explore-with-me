@@ -23,12 +23,14 @@ public class ErrorHandler {
     @ExceptionHandler({UserNotFoundException.class, CategoryNotFoundException.class, EventNotFoundException.class})
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ErrorResponse handleNotFoundException(final RuntimeException e) {
+        log.error("ERROR: The required object was not found. " + e.getMessage());
         return new ErrorResponse(HttpStatus.NOT_FOUND, "The required object was not found.", e.getMessage());
     }
 
     @ExceptionHandler(ForbiddenException.class)
     @ResponseStatus(HttpStatus.FORBIDDEN)
     public ErrorResponse handleForbiddenException(final RuntimeException e) {
+        log.error("ERROR: Only the author can delete a comment. " + e.getMessage());
         return new ErrorResponse(HttpStatus.NOT_FOUND, "Only the author can delete a comment.", e.getMessage());
     }
 
@@ -40,6 +42,7 @@ public class ErrorHandler {
         for (final FieldError error : e.getBindingResult().getFieldErrors()) {
             errors.add(error.getField() + ": " + error.getDefaultMessage());
         }
+        log.error("ERROR: Incorrectly made request: " + errors.toString());
         return new ErrorResponse(HttpStatus.BAD_REQUEST, "Incorrectly made request.", errors.toString());
     }
 
@@ -47,6 +50,7 @@ public class ErrorHandler {
             ConstraintViolationException.class, ValidationException.class})
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ErrorResponse handleConstraintViolationException(final Exception e) {
+        log.error("Incorrectly made request. " + e.getMessage());
         return new ErrorResponse(HttpStatus.BAD_REQUEST, "Incorrectly made request.", e.getMessage());
     }
 
@@ -60,6 +64,7 @@ public class ErrorHandler {
             InvalidDataAccessResourceUsageException.class})
     @ResponseStatus(HttpStatus.CONFLICT)
     public ErrorResponse handleEventUpdateImpossible(RuntimeException e) {
+        log.error("Incorrectly made request. " + e.getMessage());
         return new ErrorResponse(HttpStatus.BAD_REQUEST, "Incorrectly made request.", e.getMessage());
     }
 

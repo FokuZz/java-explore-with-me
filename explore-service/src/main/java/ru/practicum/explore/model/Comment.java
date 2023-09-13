@@ -24,7 +24,7 @@ public class Comment {
     private Event event;
     @JoinColumn
     private String text;
-    @Column(name = "created")
+    @JoinColumn
     private LocalDateTime created;
     @Enumerated(EnumType.STRING)
     @JoinColumn

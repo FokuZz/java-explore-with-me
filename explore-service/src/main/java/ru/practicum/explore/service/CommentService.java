@@ -90,8 +90,11 @@ public class CommentService {
 
     public void deleteCommentByAdmin(Long commentId) {
         log.info("Delete comment Admin with CommentId = {}",commentId);
-        getCommentById(commentId);
-        commentRepository.deleteById(commentId);
+        try{
+            commentRepository.deleteById(commentId);
+        } catch (Exception e){
+            throw new IllegalArgumentException(String.format("Удаления по id = %s не произошло", commentId));
+        }
     }
 
     public List<CommentDto> getAll(Long eventId, Pageable pageable) {
