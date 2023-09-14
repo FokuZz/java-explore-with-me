@@ -131,13 +131,13 @@ public class CommentService {
     }
 
     private void checkEventById(Long eventId) {
-        if (eventRepository.existsById(eventId)) {
+        if (!eventRepository.existsById(eventId)) {
             throw new UserNotFoundException(String.format("Мероприятие с id=%d не найдено.", eventId));
         }
     }
 
     private void checkUserById(Long userId) {
-        if (userRepository.existsById(userId))
+        if (!userRepository.existsById(userId))
             throw new UserNotFoundException(String.format("Пользователь с id=%d не найден.", userId));
     }
 
