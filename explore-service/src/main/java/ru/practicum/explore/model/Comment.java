@@ -22,11 +22,8 @@ public class Comment {
     @ManyToOne
     @JoinColumn(name = "event_id")
     private Event event;
-    @JoinColumn
     private String text;
-    @JoinColumn
     private LocalDateTime created;
     @Enumerated(EnumType.STRING)
-    @JoinColumn
     private CommentStatus status;
 }

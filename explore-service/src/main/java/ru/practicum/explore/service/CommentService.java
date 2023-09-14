@@ -59,7 +59,7 @@ public class CommentService {
 
     public CommentDto getCommentsByIdByUser(Long userId, Long commentId) {
         log.info("Get comment with user, comment id ({},{})",userId, commentId);
-        getUserById(userId);
+        checkUserById(userId);
         Comment comment = getCommentById(commentId);
         if (!comment.getAuthor().getId().equals(userId)) {
             throw new ForbiddenException("Полная информация о комментарии доступна только автору.");
@@ -69,7 +69,7 @@ public class CommentService {
 
     public void deleteCommentByUser(Long userId, Long commentId) {
         log.info("Delete comment with user, comment id ({},{})",userId, commentId);
-        getUserById(userId);
+        checkUserById(userId);
         Comment comment = getCommentById(commentId);
         if (!comment.getAuthor().getId().equals(userId)) {
             throw new ForbiddenException("Удалить комментарий может только автор.");
@@ -93,13 +93,13 @@ public class CommentService {
         try{
             commentRepository.deleteById(commentId);
         } catch (Exception e){
-            throw new IllegalArgumentException(String.format("Удаления по id = %s не произошло", commentId));
+            throw new UserNotFoundException(String.format("Комментарий с id=%d не найден.", commentId));
         }
     }
 
     public List<CommentDto> getAll(Long eventId, Pageable pageable) {
         log.info("GetAll with eventId = {}",eventId);
-        getEventById(eventId);
+        checkEventById(eventId);
         List<Comment> comments = commentRepository.findCommentsByEventId(eventId, pageable);
         return comments.stream()
                 .map(CommentMapper::toCommentDto)
@@ -108,7 +108,7 @@ public class CommentService {
 
     public List<CommentDto> getAllByAdmin(Long eventId, PageRequest pageable) {
         log.info("GetAll Admin with eventId = {}",eventId);
-        getEventById(eventId);
+        checkEventById(eventId);
         List<Comment> comments = commentRepository.findAllByEventId(eventId, pageable);
         return comments.stream()
                 .map(CommentMapper::toCommentDto)
@@ -124,10 +124,20 @@ public class CommentService {
         return userRepository.findById(userId)
                 .orElseThrow(() -> new UserNotFoundException(String.format("Пользователь с id=%d не найден.", userId)));
     }
-
     private Event getEventById(Long eventId) {
         return eventRepository.findById(eventId)
                 .orElseThrow(() -> new UserNotFoundException(String.format("Мероприятие с id=%d не найдено.", eventId)));
+    }
+
+    private void checkEventById(Long eventId) {
+        if(eventRepository.existsById(eventId)){
+                throw new UserNotFoundException(String.format("Мероприятие с id=%d не найдено.", eventId));
+        }
+    }
+
+    private void checkUserById(Long userId) {
+        if(userRepository.existsById(userId))
+            throw new UserNotFoundException(String.format("Пользователь с id=%d не найден.", userId));
     }
 
     private void changeStatusComment(Comment comment, CommentStateAction state) {
