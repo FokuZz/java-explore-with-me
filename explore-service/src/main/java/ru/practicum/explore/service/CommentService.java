@@ -58,7 +58,7 @@ public class CommentService {
     }
 
     public CommentDto getCommentsByIdByUser(Long userId, Long commentId) {
-        log.info("Get comment with user, comment id ({},{})",userId, commentId);
+        log.info("Get comment with user, comment id ({},{})", userId, commentId);
         checkUserById(userId);
         Comment comment = getCommentById(commentId);
         if (!comment.getAuthor().getId().equals(userId)) {
@@ -68,7 +68,7 @@ public class CommentService {
     }
 
     public void deleteCommentByUser(Long userId, Long commentId) {
-        log.info("Delete comment with user, comment id ({},{})",userId, commentId);
+        log.info("Delete comment with user, comment id ({},{})", userId, commentId);
         checkUserById(userId);
         Comment comment = getCommentById(commentId);
         if (!comment.getAuthor().getId().equals(userId)) {
@@ -89,16 +89,16 @@ public class CommentService {
     }
 
     public void deleteCommentByAdmin(Long commentId) {
-        log.info("Delete comment Admin with CommentId = {}",commentId);
-        try{
+        log.info("Delete comment Admin with CommentId = {}", commentId);
+        try {
             commentRepository.deleteById(commentId);
-        } catch (Exception e){
+        } catch (Exception e) {
             throw new UserNotFoundException(String.format("Комментарий с id=%d не найден.", commentId));
         }
     }
 
     public List<CommentDto> getAll(Long eventId, Pageable pageable) {
-        log.info("GetAll with eventId = {}",eventId);
+        log.info("GetAll with eventId = {}", eventId);
         checkEventById(eventId);
         List<Comment> comments = commentRepository.findCommentsByEventId(eventId, pageable);
         return comments.stream()
@@ -107,7 +107,7 @@ public class CommentService {
     }
 
     public List<CommentDto> getAllByAdmin(Long eventId, PageRequest pageable) {
-        log.info("GetAll Admin with eventId = {}",eventId);
+        log.info("GetAll Admin with eventId = {}", eventId);
         checkEventById(eventId);
         List<Comment> comments = commentRepository.findAllByEventId(eventId, pageable);
         return comments.stream()
@@ -124,19 +124,20 @@ public class CommentService {
         return userRepository.findById(userId)
                 .orElseThrow(() -> new UserNotFoundException(String.format("Пользователь с id=%d не найден.", userId)));
     }
+
     private Event getEventById(Long eventId) {
         return eventRepository.findById(eventId)
                 .orElseThrow(() -> new UserNotFoundException(String.format("Мероприятие с id=%d не найдено.", eventId)));
     }
 
     private void checkEventById(Long eventId) {
-        if(eventRepository.existsById(eventId)){
-                throw new UserNotFoundException(String.format("Мероприятие с id=%d не найдено.", eventId));
+        if (eventRepository.existsById(eventId)) {
+            throw new UserNotFoundException(String.format("Мероприятие с id=%d не найдено.", eventId));
         }
     }
 
     private void checkUserById(Long userId) {
-        if(userRepository.existsById(userId))
+        if (userRepository.existsById(userId))
             throw new UserNotFoundException(String.format("Пользователь с id=%d не найден.", userId));
     }
 

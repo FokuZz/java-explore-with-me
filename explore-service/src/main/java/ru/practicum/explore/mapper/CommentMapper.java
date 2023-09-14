@@ -8,7 +8,6 @@ import ru.practicum.explore.model.CommentStatus;
 import ru.practicum.explore.model.Event;
 import ru.practicum.explore.model.User;
 
-
 import java.time.LocalDateTime;
 
 @UtilityClass

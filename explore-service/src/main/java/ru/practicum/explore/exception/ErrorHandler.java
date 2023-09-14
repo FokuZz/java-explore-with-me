@@ -42,7 +42,7 @@ public class ErrorHandler {
         for (final FieldError error : e.getBindingResult().getFieldErrors()) {
             errors.add(error.getField() + ": " + error.getDefaultMessage());
         }
-        log.error("ERROR: Incorrectly made request: " + errors.toString());
+        log.error("ERROR: Incorrectly made request: " + errors);
         return new ErrorResponse(HttpStatus.BAD_REQUEST, "Incorrectly made request.", errors.toString());
     }
 
