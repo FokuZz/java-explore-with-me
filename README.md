@@ -24,7 +24,7 @@ API основного сервиса состоит из трех частей:
 3. Библиотека DTO
 
 _Схема модулей приложения:_
-![Схема модулей приложения](https://github.com/FokuZz/java-explore-with-me/blob/main/info/Explore%20with%20me.jpg)
+![Схема модулей приложения](https://github.com/FokuZz/java-explore-with-me/blob/main/info/ewm.png)
 
 __
 
