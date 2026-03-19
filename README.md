@@ -1,73 +1,68 @@
-# 📱 Explore with me
+# 📱 Explore With Me
 
-##  Что это?
-Бэкенд приложения-афиши для публикации и поиска событий.
+## What is it?
+A backend for an event discovery platform — find things to do and people to do them with.
 
-Свободное время — ценный ресурс. Ежедневно мы планируем, как его потратить — куда и с кем сходить.
-Сложнее всего в таком планировании поиск информации и переговоры.
-Нужно учесть много деталей: какие намечаются мероприятия, свободны ли в этот момент друзья, как всех пригласить и где собраться.
+Planning your free time is harder than it sounds: finding events, checking if friends are available, coordinating where to meet. This app brings it together.
 
-Приложение состоит из двух микросервисов и двух БД (для каждого из сервисов):
-### 💻 Main
-Основной сервис, отвечающий за бизнес-логику приложения.
-API основного сервиса состоит из трех частей:
-* публичная доступна без регистрации любому пользователю сети;
-* закрытая доступна только авторизованным пользователям;
-* административная — для администраторов сервиса.
+Built as two independent microservices with separate databases:
 
-### 📜 Stats
-Сервер статистики, отвечающий за сохранение и получение статистики просмотров. \
-Модуль статистики состоит из трех подмодулей:
-1. Основной сервис статистики
-2. Библиотека клиента сервиса статистики для отправки и получения статистики
-3. Библиотека DTO
+### 💻 Main Service
+Core business logic. The API is split into three access levels:
+- **Public** — available to anyone without registration
+- **Private** — for authenticated users
+- **Admin** — for platform administrators
 
-_Схема модулей приложения:_
-![Схема модулей приложения](https://github.com/FokuZz/java-explore-with-me/blob/main/info/ewm.png)
-___
+### 📜 Stats Service
+Handles view tracking and statistics. Consists of three modules:
+1. Stats service
+2. Client library for sending and receiving stats
+3. DTO library
 
-## ⭐ Возможности приложения:
-#### Публичный доступ:
-* Поиск событий по критериям (дата, категория события, и т.д.)
-* Просмотр существующих категорий событий
-* Просмотр подборок, созданных администратором
+_Application architecture:_
+![Architecture diagram](https://github.com/FokuZz/java-explore-with-me/blob/main/info/ewm.png)
 
-#### Авторизованные пользователи
-* Поиск событий
-* Добавление и редактирование событий
-* Подача заявок на участие в событиях других пользователей
-* Просмотр и модерация заявок, поданных на участие в своих событиях
+---
 
-#### Администратор
-* Создание, редактирование и удаление пользователей
-* Создание, редактирование и удаление категорий
-* Создание, редактирование и удаление подборок событий
-* Поиск и редактирование событий (включая публикацию)
-___
-## ⚙️ Технологический стек
-* Java 11
-* Spring Boot
-* Hibernate (main service)
-* JDBC (stats service)
-* Junit
-* Mockito
-* Lombok
-* PostgresSQL
-* Maven
-* Docker
-___
-### 🌐 Описание API приложения:
-Описание API сервера [здесь](api).
-___
-### 📃 Инструкция по запуску:
-1. Скачать проект
-2. По умолчанию приложение работает на порту 8080 (основной сервис) и 9090 (сервис статистики).
-3. Собрать проект:
+## ⭐ Features
+
+**Public**
+- Search events by date, category, and other filters
+- Browse event categories
+- View curated collections created by admins
+
+**Authenticated users**
+- Search and browse events
+- Create and edit your own events
+- Apply to participate in other users' events
+- Review and manage incoming participation requests
+
+**Admins**
+- Full user, category, and event management
+- Create and manage curated event collections
+- Publish and moderate events
+
+---
+
+## ⚙️ Stack
+Java 11 · Spring Boot · Hibernate · JDBC · PostgreSQL · Docker · Maven · JUnit · Mockito · Lombok
+
+---
+
+## 🚀 Running locally
+
+1. Clone the repository
+2. Default ports: `8080` (main service), `9090` (stats service)
+3. Build:
 ```shell
 docker compose build
 ```
-4. Запустить проект:
+4. Run:
 ```shell
 docker compose up
 ```
-___
+
+---
+
+## 🌐 API Reference
+Full API specification [here](api).
